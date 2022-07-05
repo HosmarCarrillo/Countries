@@ -2,8 +2,7 @@ import React, {useState, useEffect} from "react";
 import {Link, useHistory} from "react-router-dom";
 import {addActivities, getActivities} from "../actions/index";
 import {useDispatch, useSelector} from "react-redux";
-
-
+import './ActivitiCreate.css';
 
 function validate(input){
     let errors = {};
@@ -17,7 +16,6 @@ function validate(input){
        
     }else if (!input.temporada) {
         errors.temporada = 'Se requiere que completes todos los campos'
-       
     }
     return errors;
 }
@@ -27,10 +25,7 @@ export default function ActivitiesCreate(){
     const history = useHistory()
     const countries = useSelector((state)=> state.countries)
     const activities = useSelector((state)=> state.activities)
-    
-    
     const [errors, setErrors] = useState({});
-
     const [input, setInput] = useState({
         name: "",
         dificultad:"", // igual que temporada[]
@@ -40,6 +35,7 @@ export default function ActivitiesCreate(){
     });
     
     function handleChange(el){
+        
         setInput({
             ...input,
             [el.target.name]: el.target.value
@@ -51,12 +47,12 @@ export default function ActivitiesCreate(){
     }
     function handleCheck(el){
         if (el.target.checked){
+            console.log('hola')
             setInput({
                 ...input,
                 [el.target.name]:el.target.value
                 
             })
-            console.log("🚀 ~ file: ActivitiesCreate.jsx ~ line 57 ~ handleCheck ~ el.target.name", el.target.name)
         }
     }
     function handleSelec(el){
@@ -93,12 +89,12 @@ export default function ActivitiesCreate(){
     },[dispatch]);
 
     return (
-        <div>
-            <Link to= '/home'><button>Volver</button></Link>
+        
+        <div className="container act">
             <h1>Crea tu Actividad</h1>
             <form onSubmit={(el)=>handleSumit(el)}>
                 <div>
-                    <label>Nombre:</label>
+                    <label>Actividad:</label>
                     <input
                     type = "text"
                     value= {input.name}
@@ -107,10 +103,10 @@ export default function ActivitiesCreate(){
                     />
                     {errors.name && (
                         <p className="error">{errors.name}</p>
-                    )}
+                        )}
                 </div>
                 <div>
-                    <label>dificultad:</label>
+                    <label>Dificultad:</label>
                     <label><input
                     type = "checkbox"
                     name= "dificultad"
@@ -143,7 +139,7 @@ export default function ActivitiesCreate(){
                     />5</label>
                     {errors.dificultad && (
                         <p className="error">{errors.dificultad}</p>
-                    )}     
+                        )}     
                 </div>
                 <div>
                     <label>Duracion:</label>
@@ -158,7 +154,7 @@ export default function ActivitiesCreate(){
                     )} 
                 </div>
                 <div>
-                    <label>temporada:</label>
+                    <label>Temporada:</label>
                     <label><input
                     type = "checkbox"
                     name= "temporada"
@@ -185,10 +181,12 @@ export default function ActivitiesCreate(){
                     />Primavera</label>
                     {errors.temporada && (
                         <p className="error">{errors.temporada}</p>
-                    )} 
+                        )} 
                 </div>
                 <select onChange={(el)=>handleSelec(el)}>
+                <option value = ''> Destino...</option>
                     {countries.map((count)=>(
+                        
                         <option value={count.id}>{count.name}</option>
                     ))}
                 </select>
@@ -196,6 +194,7 @@ export default function ActivitiesCreate(){
                 <button >Crear Actividad</button>        
 
             </form>
+            <div className="caja-de-paises">
                 {input.countriesId.map(el=> 
                     <div className = "divOcc">
                         <p>{el.name}</p>
@@ -203,10 +202,13 @@ export default function ActivitiesCreate(){
                         <button className="botonX" onClick={() => handleDelete(el)}>X</button>
                         </div>
                     )}
+
+            </div>
+            <Link to= '/home'><button>Volver</button></Link>
             
         </div>
     )
-
-
+    
+    
 
 }

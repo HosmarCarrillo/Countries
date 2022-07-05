@@ -98,6 +98,7 @@ router.post('/activities', async (req, res) =>{
         return res.status(404).send("Algunos campos necesitan ser llenados");
       }
       try {
+          
           const activitiesCreated = await Activities.create ({
               name,
               dificultad,
@@ -106,11 +107,7 @@ router.post('/activities', async (req, res) =>{
               
             })
             
-            // const getid = await Activities.findAll({
-            //     where: {name: name}
-            // })
-        // const contries = await Countries.findByPk(countryId);
-    
+              
         for (let i = 0; i < countriesId.length; i++) {
             await activitiesCreated.addCountries(countriesId[i].id);       
         }

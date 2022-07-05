@@ -1,0 +1,34 @@
+form {
+display: flex;
+}
+
+.act{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.act img{
+    height: 100px;
+    width: 150px;
+    padding: 10px;
+}
+
+.caja-de-paises{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: aliceblue;
+    border-radius: 15px;
+    
+
+}
+
+.divOcc{
+    display: flex;
+    margin: 10px;
+    width: 150px;
+    justify-content: space-around;
+    align-items: flex-end;
+    flex-direction: column-reverse;
+    
+}

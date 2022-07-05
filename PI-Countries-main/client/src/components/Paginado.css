@@ -34,7 +34,7 @@ ul.pagination {
   }
     
   ul.pagination li a:hover:not(.active) {
-    background-color: #5A7E8C;
+    background-color: #BFA36F;
     color: rgb(248, 251, 248);
     border-radius: 10px;
     height: 100px;

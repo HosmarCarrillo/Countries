@@ -59,7 +59,7 @@ export default function Detail (){
                 {myCountry.activities.map(el=> {
                     return(
                         <div >
-                            <CardActivities key= {el.id} name= {el.name} temporada={el.temporada} duracion = {el.duracion}/>   
+                            <CardActivities key= {el.id} name= {el.name} temporada={el.temporada} duracion = {el.duracion} dificultad = {el.dificultad}/>   
                         </div>
                         )
                 })}
