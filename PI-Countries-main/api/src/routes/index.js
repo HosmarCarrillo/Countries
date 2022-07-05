@@ -1,0 +1,135 @@
+const { Router } = require('express');
+const axios = require ('axios');
+const {Countries, Activities} = require ('../db');
+// Importar todos los routers;
+// Ejemplo: const authRouter = require('./auth.js');
+
+
+const router = Router();
+
+// Configurar los routers
+// Ejemplo: router.use('/auth', authRouter);
+
+const getApiInfo = async() => {
+    const apiUrl = await axios.get("https://restcountries.com/v3/all")
+    const apiInfo = await apiUrl.data.map(el => {
+        return {
+            id: el.cca3,
+            name: el.name.common,
+            img: el.flags[1],
+            continents: el.continents[0],
+            capital : ( el.capital || []).length === 0 ? "No tiene capital" : el.capital[0] ,
+            subregion: el.subregion,     
+            area: el.area,
+            population: el.population,
+        };
+    });
+    
+    return apiInfo;
+    
+};
+const getDbInfo = async () => {
+    return await Countries.findAll({
+      includes: Activities,
+        
+        // attributes: ['name', 'dificultad', 'duracion', 'temporada',],   
+        // through: { activities: [] } // Mediante
+
+             
+    })
+} 
+
+const getAllCountries = async () =>{
+    const apiInfo = await getApiInfo();
+    const dbInfo = await getDbInfo();
+    const infoTotal = dbInfo.concat(apiInfo);
+       return infoTotal;
+}
+
+
+
+
+router.get('/countries/:id', async (req, res)=>{
+    const id = req.params.id; // const {id} = req.params
+    let countriesTotal = await getAllCountries();
+    
+    if (id) {
+        let countriesId = await countriesTotal.filter ( el => el.id.toLowerCase()==(id.toLowerCase()))
+        countriesId.length ?
+
+        res.status(200).json(countriesId) :
+        res.status(404).send('No existe ese Pais');
+
+    }
+    
+}) 
+
+
+
+router.get('/countries', async (req, res)=> {
+    let allCountries = await Countries.findAll({include:Activities});
+    const id = req.query.id; // consulta la base de datos
+    console.log("🚀 ~ file: index.js ~ line 70 ~ router.get ~ name", id)
+    
+    if(!allCountries.length){ 
+        allCountries = await getApiInfo();
+        await Countries.bulkCreate(allCountries);
+    }
+    if (id) {
+        let countriesName = await allCountries.filter( el => el.id.toLowerCase().includes(id.toLowerCase()))
+        return countriesName.length ?
+        res.status(200).send(countriesName) :
+        res.status(404).send('No existe ese Pais');
+    }
+        return res.status(200).json(allCountries)
+  
+})
+
+router.post('/activities', async (req, res) =>{
+    const {
+        name,
+        dificultad,
+        duracion,
+        temporada,
+        countriesId
+    } = req.body
+
+    if(!name || !dificultad || !duracion || !temporada|| !countriesId){
+        return res.status(404).send("Algunos campos necesitan ser llenados");
+      }
+      try {
+          const activitiesCreated = await Activities.create ({
+              name,
+              dificultad,
+              duracion,
+              temporada,
+              
+            })
+            
+            // const getid = await Activities.findAll({
+            //     where: {name: name}
+            // })
+        // const contries = await Countries.findByPk(countryId);
+    
+        for (let i = 0; i < countriesId.length; i++) {
+            await activitiesCreated.addCountries(countriesId[i].id);       
+        }
+        return res.status(200).json(activitiesCreated)      
+      } catch (error) {
+        res.send(error);
+      }
+});
+
+router.get('/activities', async (req, res) => {
+
+    const activities = await Activities.findAll();
+    if(activities.length) {
+      return res.status(200).json(activities);
+    }
+    return res.status(200).send([]);
+
+
+});
+module.exports = router;
+
+
