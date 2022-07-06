@@ -54,7 +54,7 @@ router.get('/countries/:id', async (req, res)=>{
     let countriesTotal = await getAllCountries();
     
     if (id) {
-        let countriesId = await countriesTotal.filter ( el => el.id.toLowerCase()==(id.toLowerCase()))
+        let countriesId = await countriesTotal.filter ( el => el.id.toLowerCase()===(id.toLowerCase()))
         countriesId.length ?
 
         res.status(200).json(countriesId) :
@@ -66,17 +66,23 @@ router.get('/countries/:id', async (req, res)=>{
 
 
 
-router.get('/countries', async (req, res)=> {
-    let allCountries = await Countries.findAll({include:Activities});
-    const id = req.query.id; // consulta la base de datos
-    console.log("🚀 ~ file: index.js ~ line 70 ~ router.get ~ name", id)
-    
+router.get('/countries', async (req, res)=> { //query
+    let allCountries = await Countries.findAll({include:Activities});//consulta la base de datos
+    const id = req.query.id; // peticion 
+    const name = req.query.name;   
+
     if(!allCountries.length){ 
         allCountries = await getApiInfo();
         await Countries.bulkCreate(allCountries);
     }
     if (id) {
-        let countriesName = await allCountries.filter( el => el.id.toLowerCase().includes(id.toLowerCase()))
+        let countriesId = allCountries.filter( el => el.id.toLowerCase()===id.toLowerCase())
+        return countriesId.length ?
+        res.status(200).send(countriesId) :
+        res.status(404).send('No existe ese Pais');
+    }
+    if (name) {
+        let countriesName = allCountries.filter( el => el.name.toLowerCase().includes(name.toLowerCase()))
         return countriesName.length ?
         res.status(200).send(countriesName) :
         res.status(404).send('No existe ese Pais');

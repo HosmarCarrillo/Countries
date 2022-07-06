@@ -63,19 +63,19 @@ return(
             <img src={countries} alt='' height= '70px' ></img>
             <h1>Countries</h1>
             <div className='actividad'>
-                <div>
-                    <Link to= '/activities' >Actividades</Link>
+                <div className='crear'>
+                    <Link to= '/activities' >Crear Actividades</Link>
                 </div>
-                <div>
+                <div className='filtro-act'>
                     <select onChange={(el)=>handleSelec(el)}>
-                    <option value = 'sin filtro'>Sin filtrar</option>
+                    <option value = 'sin filtro'>Sin Filtrar</option>
                         {activities.map((act)=>(
                     <option value={act.name}>{act.name}</option>
                      ))}
                     </select>
                 </div>
             </div>  
-            <div>
+            <div className='ordenar'>
             <select onClick={el=> {handleSort(el)}}>
                 <option value = ''>Ordenar</option>
                 <option value = 'asc'>Acendente</option>
@@ -85,7 +85,7 @@ return(
             
             <div className='barr2'>
                 <button onClick={el=> {handleClick(el)}}>
-                volver a cargar paises
+                Recargar Paises
                 </button>
             </div>
             <div>

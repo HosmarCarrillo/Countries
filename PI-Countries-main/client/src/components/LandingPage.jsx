@@ -1,11 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import viajar from "../pictures/viajar.jpg"
+import "./LandingPage.css";
 
 export default function LandingPage(){
     return(
         <header className='hero' >
-        <div className='texto hero' >
+        <div className='texto' >
             <h1>Bienvenidos</h1>
             <p>Proyecto Individual</p>
             <Link to ='/home'>

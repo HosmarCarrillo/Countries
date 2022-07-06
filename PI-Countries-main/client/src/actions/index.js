@@ -15,7 +15,7 @@ export function getCountries() {
 export function getNameCountries(name){
     return async function(dispatch){
         try {
-            var json = await axios.get("http://localhost:3001/countries/"+ name);
+            var json = await axios.get("http://localhost:3001/countries?name="+ name);
             return dispatch({
                 type: "GET_NAME_COUNTRIES",
                 payload: json.data
@@ -25,6 +25,7 @@ export function getNameCountries(name){
         }
     }
 }
+
 export function getActivities() {
     return async function (dispatch) {
         var info = await axios.get("http://localhost:3001/activities",{
@@ -40,7 +41,7 @@ export function getActivities() {
 
 export function addActivities(payload) {
     return async function (dispatch) {
-        console.log("🚀 ~ file: index.js ~ line 47 ~ info",  payload)
+        
         var info = await axios.post("http://localhost:3001/activities", payload);
         return dispatch({
         type: 'ADD_ACTIVITIES',
@@ -81,14 +82,13 @@ export function orderByName(payload){
 export function getDetail (id){
     return async function(dispach){
         try {
-            var json = await axios.get(`http://localhost:3001/countries?id=${id}`);
-            console.log("🚀 ~ file: index.js ~ line 85 ~ returnfunction ~ json", json)
+            var json = await axios.get(`http://localhost:3001/countries?id=${id}`);           
             return dispach({
                 type: "GET_DETAILS",
                 payload: json.data[0]
             })
         } catch (error) {
-        console.log("🚀 ~ file: index.js ~ line 91 ~ returnfunction ~ error", error)
+            console.log(error)
             
         }
     }
