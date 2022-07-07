@@ -45,6 +45,7 @@ export default function Detail (){
                         <h2>Subregion: {myCountry.subregion}</h2>
                         <h2>Area: {numberWithDot(myCountry.area)} km²</h2>
                         <h2>Poblacion: {numberWithDot(myCountry.population)} hab </h2>
+                        <h2>borders: {myCountry.borders} </h2>
                         </div>
                 </div>
 
@@ -59,7 +60,7 @@ export default function Detail (){
                 {myCountry.activities.map(el=> {
                     return(
                         <div >
-                            <CardActivities key= {el.id} name= {el.name} temporada={el.temporada} duracion = {el.duracion} dificultad = {el.dificultad}/>   
+                            <CardActivities key= {el.id} name= {el.name} temporada={el.temporada} duracion = {el.duracion} dificultad = {el.dificultad} borders = {el.borders} />   
                         </div>
                         )
                 })}

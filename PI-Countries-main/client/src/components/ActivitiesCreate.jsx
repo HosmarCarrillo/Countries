@@ -5,8 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import viaje from "../pictures/viaje.gif";
 import './ActivitiCreate.css';
 
-function validate(input){
-    
+function validate(input){   
     let errors = {};
     if (!input.name){
         errors.name = 'Se requiere un que ingreses una actividad'
@@ -208,7 +207,7 @@ export default function ActivitiesCreate(){
                         <option value={count.id}>{count.name}</option>
                     ))}
                 </select>
-                {/* <ul><li>{input.countriesId.map(e => e + " ,")}</li></ul> */}
+                
                 <button >Crear Actividad</button>        
 
             </form>

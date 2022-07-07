@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import {useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getCountries, filterCountriesByRegion, orderByName, getActivities, filterCreated } from "../actions";
+import { getCountries, filterCountriesByRegion, orderByName, getActivities, filterCreated, orderByPopulation } from "../actions";
 import Card from './Card'
 import Paginado from './Paginado';
 import SearchBar from './SearchBar';
@@ -23,13 +23,17 @@ export default function Home () {
     const allCountries = useSelector ((state)=> state.countries) // es lo mismo que hacer el MyStateToProps
     const [currentPage, setCurrentPage] = useState(1)
     const [orden, setOrden] = useState ('');
-    const [countriesPrePage, setCountriesPrePage] = useState(10)
+    const [countriesPrePage] = useState(10)
     const indexOfLastCountries = currentPage * countriesPrePage
     const indexOfFirstCountries = indexOfLastCountries - countriesPrePage
     const currentCountries = allCountries.slice(indexOfFirstCountries, indexOfLastCountries)
+
+
+
     const paginado = (pageNumber)=> {
         setCurrentPage(pageNumber)
     }
+    
 
 useEffect(()=>{
     dispatch(getCountries());
@@ -44,15 +48,23 @@ function handleClick(el){
 function handleSort (el){
     el.preventDefault();
     dispatch(orderByName(el.target.value))
-    setCurrentPage(1);
     setOrden(`Ordenado ${el.target.value}`)
     };
+
+function handleSortP (el){
+    el.preventDefault();
+    dispatch(orderByPopulation(el.target.value))
+    setOrden(`Ordenado ${el.target.value}`)
+    };    
+  
+
 function handleSelec (el){
     el.preventDefault();
     dispatch(filterCreated(el.target.value))    
     };
 function handleFilterRegion(el){
     dispatch(filterCountriesByRegion(el.target.value))
+    setCurrentPage(1)
     }
 
 return(
@@ -78,10 +90,17 @@ return(
             <div className='ordenar'>
             <select onClick={el=> {handleSort(el)}}>
                 <option value = ''>Ordenar</option>
+                <option value = 'asc'>A-Z</option>
+                <option value = 'desc'>Z-A</option>
+            </select> 
+            </div>             
+            <div className='ordenar'>
+            <select onClick={el=> {handleSortP(el)}}>
+                <option value = ''>Población</option>
                 <option value = 'asc'>Acendente</option>
                 <option value = 'desc'>Descendente</option>
             </select> 
-            </div>             
+            </div>
             
             <div className='barr2'>
                 <button onClick={el=> {handleClick(el)}}>
@@ -89,7 +108,7 @@ return(
                 </button>
             </div>
             <div>
-                <SearchBar/>
+                <SearchBar setCurrentPage={setCurrentPage}/>
             </div>
         </div>
     </div>
@@ -106,7 +125,7 @@ return(
             return ( 
                 <div className='item' >
                     <Link to= {`/detail/${c.id}`} >              
-                        <Card  key= {c.id} name= {c.name} img= {c.img} id={c.id} capital = {c.capital} />
+                        <Card  key= {c.id} name= {c.name} img= {c.img} continents={c.continents} capital = {c.capital} />
                     </Link> 
                 </div>         
                 );

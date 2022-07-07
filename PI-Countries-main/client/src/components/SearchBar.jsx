@@ -5,43 +5,32 @@ import { getNameCountries } from "../actions";
 import '../components/SearchBar.css';
 
 
-export default function SeaechBar(){
+export default function SeaechBar({setCurrentPage}){
     const dispatch = useDispatch()
     const [name, setName] = useState("")
 
     function handleImputCountries(el){
         el.preventDefault()
         setName(el.target.value)
-        console.log(name)
-        
-        
+        console.log(name)    
     }
     function handleSubmit(el){
         el.preventDefault()
+        if(!name) return alert("Debes ingresar un pais")
         dispatch(getNameCountries(name))
-        setName ("")// ojo con esto si no funsiona
-        
+        setCurrentPage(1)
+        setName ("")
     }
 
     return(
         <div>
             
-            {/* <input
-            type= 'text'
-            placeholder = 'Buscar...'
-            onChange={(el) => handleImputCountries(el)}
-            />
-            <div>
-            <button type="submit" onClick={(el)=> handleSubmit(el)}>Buscar</button>
-
-            </div> */}
-        <div className="containerr">
-          
-        <input type= 'text' placeholder = 'Buscar...' onChange={(el) => handleImputCountries(el)}/>
-            <div className="btnn">
-                <button className="search" type="submit" onClick={(el)=> handleSubmit(el)}>Buscar</button>
+            <div className="containerr">      
+                <input type= 'text'  placeholder = ' Buscar...' onChange={(el) => handleImputCountries(el)} />
+                <div className="btnn">
+                    <button className="search" type="submit"  onClick={(el)=> handleSubmit(el)} >Buscar</button>
+                </div>
             </div>
-        </div>
         </div>
 
     )

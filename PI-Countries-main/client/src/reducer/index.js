@@ -48,6 +48,33 @@ function rootReducer(state = initialState, action) {
                     countries: sortedArr
                 }
 
+                case 'ORDER_BY_POPULATION':
+                    let populationOrder = action.payload === 'asc'?
+                        state.countries.sort(function(a,b){
+                            if(a.population > b.population){
+                                return 1;
+                            }
+                            if(b.population > a.population){
+                                return -1;
+                            }
+                            return 0;
+                        }) :
+                        state.countries.sort(function(a,b){
+                            if(a.population > b.population){
+                                return - 1;
+                            }
+                            if(b.population > a.population){
+                                return 1;
+                            }
+                            return 0;
+                        })
+    
+                    return {
+                        ...state,
+                        countries: populationOrder
+                    }
+    
+
 
                 
             case "POST_COUNTRIES":

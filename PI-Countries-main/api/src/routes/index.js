@@ -13,7 +13,7 @@ const router = Router();
 const getApiInfo = async() => {
     const apiUrl = await axios.get("https://restcountries.com/v3/all")
     const apiInfo = await apiUrl.data.map(el => {
-        return {
+            return {
             id: el.cca3,
             name: el.name.common,
             img: el.flags[1],
@@ -22,9 +22,11 @@ const getApiInfo = async() => {
             subregion: el.subregion,     
             area: el.area,
             population: el.population,
+            borders: el.borders? el.borders.map(border=> {return border}) : "No tiene capital", 
+            
         };
-    });
-    
+}); 
+
     return apiInfo;
     
 };

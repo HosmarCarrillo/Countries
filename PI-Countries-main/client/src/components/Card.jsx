@@ -3,7 +3,7 @@ import './Card.css';
 
 
 
-export default function Card({name, img, id, capital }) {
+export default function Card({name, img, continents, capital }) {
     return(
 
 <div className="body">
@@ -16,7 +16,7 @@ export default function Card({name, img, id, capital }) {
             <h4>{name}</h4>
             <img src={img} alt="img no found" width= '100%' height= '100%'  />  
             <h6>{capital}</h6>
-            <h3>{id}</h3>
+            <h3>{continents}</h3>
            
         </div>
     </div>

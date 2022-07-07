@@ -14,7 +14,7 @@
  height: 30px;
  border-bottom-left-radius: 10px;
  border-top-left-radius: 10px;
- 
+ box-shadow: 0 9px 15px rgba(46, 47, 68, 0.505);
 
 }
 
@@ -36,6 +36,7 @@
     font: bold;
     background-color: #BFA36F ;
     font-size: 18px;
+    box-shadow: 0 9px 15px rgba(46, 47, 68, 0.505);
     
 }
 

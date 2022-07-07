@@ -22,6 +22,7 @@ export function getNameCountries(name){
             });
         }catch(error){
             console.log(error)
+            alert("Debes ingresar un pais Existente")
         }
     }
 }
@@ -50,14 +51,6 @@ export function addActivities(payload) {
 }
 }
 
-// export function postCountries (payload){ 
-//     return async function(dispach){
-//         const response = await axios.post("http://localhost:3001/countries", payload);
-//     console.log(response)
-//     return response;
-//     }
-// }
-
 export function filterCountriesByRegion(payload){
     return{
         type: 'FILTER_BY_REGION',
@@ -78,6 +71,14 @@ export function orderByName(payload){
         payload
     }
 }
+
+export function orderByPopulation(payload){
+    return{
+        type: 'ORDER_BY_POPULATION',
+        payload
+    }
+}
+
 
 export function getDetail (id){
     return async function(dispach){

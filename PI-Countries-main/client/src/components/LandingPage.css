@@ -1,23 +1,54 @@
-*{
-    margin:0;
-    padding: 0;
-    box-sizing: border-box;
 
-}
 
 header{
  width: 100%;
- height: 80px;
- margin-top: 80px;
- position: 100%;
- z-index: 1;
+ height: 100%;
+ position:absolute;
+ background-image: url("C:\Users\Familia Carrillo\OneDrive\Escritorio\Soy henry\PI-Countries-main\PI-Countries-main\client\src\pictures\viajar.jpg");
 }
 
-.hero{
-    max-width: 1200px;
-    height: 100%;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
+.texto{
+    transform: translate(60%, 200%); 
+    position: absolute;
+}
+
+
+.texto h1{
+    position: absolute;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    transform: translate(26%, 20%);
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font: bold;
+    
+    font-size: 100px;
+    color: rgba(221, 221, 158, 0.963);
+    text-shadow: 0 9px 16px rgba(0, 0, 0, 0.557);
+}
+
+.texto p{
+    position: absolute;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 30PX;
+    font: bold;
+    transform: translate(732%, 420%);
+    text-justify: auto;
+    color: #5A7E8C;
+    
+}
+
+.texto button{
+    position: absolute;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    border-radius: 5PX;
+    width: 180px;
+    height: 30px;
+    color: #f3f6f8;
+    border-color: #f8b021;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font: bold;
+    font-size: 20px;
+    background-color: #BFA36F ;
+    box-shadow: 0 9px 15px rgba(46, 47, 68, 0.505);
+    transform: translate(488%, 877%);
 }
 
